@@ -19,6 +19,15 @@ def divide(first, second):
     return first / second
 
 
+def is_numeric(value):
+    """Return True when value can be converted to a number."""
+    try:
+        float(value)
+        return True
+    except ValueError:
+        return False
+
+
 def main():
     operations = {
         "+": add,
@@ -34,6 +43,9 @@ def main():
         first_input = input("First number: ")
         if first_input.lower() == "q":
             break
+        if not is_numeric(first_input):
+            print("Error: Please enter a numeric value.")
+            continue
 
         operator = input("Operation (+, -, *, /): ")
         if operator.lower() == "q":
@@ -45,10 +57,13 @@ def main():
         second_input = input("Second number: ")
         if second_input.lower() == "q":
             break
+        if not is_numeric(second_input):
+            print("Error: Please enter a numeric value.")
+            continue
 
+        first = float(first_input)
+        second = float(second_input)
         try:
-            first = float(first_input)
-            second = float(second_input)
             result = operations[operator](first, second)
         except ValueError as error:
             print(f"Error: {error}")
